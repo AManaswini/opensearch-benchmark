@@ -33,10 +33,9 @@ import uuid
 
 import thespian.actors
 
-from osbenchmark import PROGRAM_NAME, BANNER, FORUM_LINK, SKULL, check_python_version, doc_link, telemetry
+from osbenchmark import PROGRAM_NAME, BANNER, FORUM_LINK, SKULL, check_python_version, doc_link, reporting, telemetry
 from osbenchmark import version, actor, config, paths, \
-    test_execution_orchestrator, results_publisher, \
-        metrics, workload, chart_generator, exceptions, log
+    test_execution_orchestrator, metrics, workload, chart_generator, exceptions, log
 from osbenchmark.builder import provision_config, builder
 from osbenchmark.workload_generator import workload_generator
 from osbenchmark.utils import io, convert, process, console, net, opts, versions
@@ -831,7 +830,7 @@ def dispatch_sub_command(arg_parser, args, cfg):
     try:
         if sub_command == "compare":
             configure_results_publishing_params(args, cfg)
-            results_publisher.compare(cfg, args.baseline, args.contender)
+            reporting.compare(cfg, args.baseline, args.contender)
         elif sub_command == "list":
             cfg.add(config.Scope.applicationOverride, "system", "list.config.option", args.configuration)
             cfg.add(config.Scope.applicationOverride, "system", "list.test_executions.max_results", args.limit)
